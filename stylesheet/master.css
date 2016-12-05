@@ -1,0 +1,10 @@
+html,
+body {
+  background-color: #ffffff;
+}
+a.navbar-brand {
+  padding: 10px 15px;
+}
+small {
+  color: gray;
+}

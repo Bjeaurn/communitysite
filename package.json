@@ -1,0 +1,24 @@
+{
+  "name": "communitysite",
+  "version": "0.0.1",
+  "description": "A basic community site system",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bjeaurn/communitysite.git"
+  },
+  "author": "Bjorn 'Bjeaurn'",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bjeaurn/communitysite/issues"
+  },
+  "homepage": "https://github.com/Bjeaurn/communitysite#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "less": "^2.7.1"
+  }
+}
