@@ -26,6 +26,20 @@ class Chat extends Model {
         return $chats;
     }
 
+    public static function getFromDate($datetime) {
+        $db = DatabasePDO::start();
+        $result = $db->prepare("SELECT c.*, u.UserID, u.UserName FROM chatbox c, users u WHERE c.ChatDateTime >= :datetime AND u.UserID = c.UserID GROUP BY c.ChatID ORDER BY ChatDateTime DESC");
+        $result->bindParam(":datetime", $datetime);
+        $result->execute();
+        $chats = array();
+        while($row = $result->fetch()) {
+            $chat = new Chat;
+            $chat->FillObject($row);
+            array_push($chats, $chat);
+        }
+        return $chats;
+    }
+
     public function create($userID) {
         if($this->body) {
             $db = DatabasePDO::start();
