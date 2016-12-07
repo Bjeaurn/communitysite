@@ -20,9 +20,11 @@
                   <td><a href="events/<?=$event->id?>"><?=$event->name?></a></td>
                   <td class="small" align="right"><?=$event->startText?></td>
                 </tr>
-                <?php }
-          } ?>
-        </div>
+                <?php }?>
+              </table>
+              </div>
+        <?php } ?>
+      </div>
         <div>
             <h4>TeamSpeak</h4>
             <div id="ts3viewer_1093657" style=""> </div>
