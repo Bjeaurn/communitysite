@@ -5,7 +5,7 @@ class Event extends Model {
   public function FillObject($row) {
     parent::FillObject($row);
     $this->startText = dateToText($row['EventStartDateTime']);
-    $this->startEnd = dateToText($row['EventEndDateTime']);
+    $this->endText = dateToText($row['EventEndDateTime']);
   }
 
   public static function FindFuture() {
@@ -13,10 +13,27 @@ class Event extends Model {
     $result = $db->prepare("SELECT * FROM events WHERE EventEndDateTime >= NOW() ORDER BY EventStartDateTime");
     $result->execute();
     $events = array();
-    while($row = $result->fetch()) {
-      $event = new Event;
-      $event->FillObject($row);
-      array_push($events, $event);
+    if($result->rowCount() > 0) {
+      while($row = $result->fetch()) {
+        $event = new Event;
+        $event->FillObject($row);
+        array_push($events, $event);
+      }
+    }
+    return $events;
+  }
+
+  public static function FindAll() {
+    $db = DatabasePDO::start();
+    $result = $db->prepare("SELECT * FROM events ORDER BY EventStartDateTime");
+    $result->execute();
+    $events = array();
+    if($result->rowCount() > 0) {
+      while($row = $result->fetch()) {
+        $event = new Event;
+        $event->FillObject($row);
+        array_push($events, $event);
+      }
     }
     return $events;
   }
@@ -30,6 +47,7 @@ class Event extends Model {
       $row = $result->fetch();
       $event = new Event;
       $event->FillObject($row);
+      $event->attending = Attendance::FindByEventId($eventID);
       return $event;
     }
     return false;

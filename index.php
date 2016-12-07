@@ -1,6 +1,7 @@
 <?php require_once("includes/config.php"); ?>
 <html>
 <head>
+    <base href="<?=__ROUTING__?>" />
     <title><?=__UNIT_NAME?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />

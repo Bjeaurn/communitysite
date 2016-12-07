@@ -13,6 +13,7 @@ include_once(__BASEPATH__."includes/base/security.class.php");
   include_once(__BASEPATH__."includes/base/class.smtp.php");
 
 include(__BASEPATH__."includes/base/model.php");
+include_once(__BASEPATH__."includes/base/helpers.php");
 
 include_once(__BASEPATH__."includes/base/language.class.php");
 include_once(__BASEPATH__."includes/base/page.class.php");
