@@ -9,7 +9,7 @@
                     </td>
                   </tr>
                   <tr *ngFor="let msg of messages">
-                   <td valign="top" align="left"><img src="images/logo-16.png" *ngIf="msg.user.level > 0" /> <small>{{ msg.user?.name }}</small><br />
+                   <td valign="top" align="left" width="20%"><img src="images/logo-16.png" *ngIf="msg.user.level > 0" /> <small>{{ msg.user?.name }}</small><br />
                      <small class="small" title="{{messages.datetime}}">{{msg.textdate}}</small></td>
                    <td valign="top">{{msg.body}}</td>
                   </tr>
