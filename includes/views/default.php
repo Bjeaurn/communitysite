@@ -11,7 +11,8 @@
     </div>
     <div class="col-md-4">
         <div>
-            <h4>Events</h4>
+          <?php if($data->events) {?>
+          <h4><a href="events">Events</a></h4>
             <div class="events">
               <table class="table">
                 <?php foreach($data->events as $event) {?>
@@ -19,9 +20,8 @@
                   <td><a href="events/<?=$event->id?>"><?=$event->name?></a></td>
                   <td class="small" align="right"><?=$event->startText?></td>
                 </tr>
-                <?php } ?>
-              </table>
-            </div>
+                <?php }
+          } ?>
         </div>
         <div>
             <h4>TeamSpeak</h4>
