@@ -18,7 +18,7 @@
                 <?php foreach($data->events as $event) {?>
                 <tr>
                   <td><a href="events/<?=$event->id?>"><?=$event->name?></a></td>
-                  <td class="small" align="right"><?=$event->startText?></td>
+                  <td class="small" align="right"><span data-toggle="tooltip" data-placement="top" title="<?=$event->startDateTime?>"><?=$event->startText?></span></td>
                 </tr>
                 <?php }?>
               </table>

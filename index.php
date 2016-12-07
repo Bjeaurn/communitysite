@@ -8,8 +8,6 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="stylesheet/master.css" />
-    <script src="libs/datepicker/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="libs/datepicker/bootstrap-datepicker3.min.css" />
 
     <!-- 1. Load libraries -->
     <!-- IE required polyfill -->
@@ -27,6 +25,12 @@
     <script src='app/app.component.js'></script>
     <script src='app/app.module.js'></script>
     <script src='app/main.js'></script>
+
+  <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  </script>
 </head>
 <body>
     <?php $page->getView() ?>

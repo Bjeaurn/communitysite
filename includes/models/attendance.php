@@ -56,5 +56,15 @@ class Attendance extends Model {
     }
     return false;
   }
+
+  public function update() {
+    $db = DatabasePDO::start();
+    $result = $db->prepare("INSERT IGNORE INTO event_attendance (UserID, EventID, AttendanceStatus, AttendanceDateTime) VALUES (:userID, :eventID, :status, NOW())
+    ON DUPLICATE KEY UPDATE AttendanceStatus = :status AND AttendanceDateTime = NOW()");
+    $result->bindParam(":userID", $this->userID);
+    $result->bindParam(":eventID", $this->eventID);
+    $result->bindParam(":status", $this->status);
+    $result->execute();
+  }
 }
 ?>

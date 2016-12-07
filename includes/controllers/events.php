@@ -38,25 +38,42 @@ if($_SERVER['REQUEST_METHOD']=="GET") {
 }
 
 if($_SERVER['REQUEST_METHOD']=="POST") {
-  if($data->user && $data->user->level > 0) {
-    $event = new Event;
-    $event->name = Security::sanitizeText($_POST['name']);
-    $event->category = Security::sanitizeText($_POST['category']);
-    $event->description = Security::sanitizeText($_POST['description']);
+  if(!$routing[1]) {
+    if($data->user && $data->user->level > 0) {
+      $event = new Event;
+      $event->name = Security::sanitizeText($_POST['name']);
+      $event->category = Security::sanitizeText($_POST['category']);
+      $event->description = Security::sanitizeText($_POST['description']);
 
-    $start = new DateTime($_POST['startDate']);
-    if($start) {
-      $event->startDateTime = $start->format('Y-m-d H:i');
-    }
-    $end = new DateTime($_POST['endDate']);
-    if($end) {
-      $event->endDateTime = $end->format('Y-m-d H:i');
-    }
+      $start = new DateTime($_POST['startDate']);
+      if($start) {
+        $event->startDateTime = $start->format('Y-m-d H:i');
+      }
+      $end = new DateTime($_POST['endDate']);
+      if($end) {
+        $event->endDateTime = $end->format('Y-m-d H:i');
+      }
 
-    $event->create($data->user->id);
-    Router::Redirect('events/'.$event->id);
-  } else {
-    Router::Redirect('events');
+      $event->create($data->user->id);
+      Router::Redirect('events/'.$event->id);
+    } else {
+      Router::Redirect('events');
+    }
+  } elseif($routing[1]) {
+    if($data->user) {
+      $eventID = $routing[1];
+      $event = Event::FindById($eventID);
+      $status = Security::sanitizeText($_POST['status']);
+
+      $attendance = new Attendance;
+      $attendance->userID = $data->user->id;
+      $attendance->eventID = $event->id;
+      $attendance->status = $status;
+      $attendance->update();
+      Router::Redirect('events/'.$event->id);
+    } else {
+      Router::Redirect('events/'.$routing[1]);
+    }
   }
 }
 
