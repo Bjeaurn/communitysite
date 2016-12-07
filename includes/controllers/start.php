@@ -13,6 +13,7 @@ if(User::isLoggedIn() && !$data->user) {
 }
 
 $data->chat = Chat::getChat();
+$data->events = Event::FindFuture();
 
 $page->setTitle(__UNIT_NAME);
 $page->setData($data);

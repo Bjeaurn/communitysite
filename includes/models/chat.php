@@ -1,7 +1,7 @@
 <?php
 class Chat extends Model {
 
-    public $id, $userID, $body, $datetime;
+    public $id, $userID, $body, $datetime, $textdate;
 
     public function FillObject($row) {
         parent::FillObject($row);
@@ -11,11 +11,12 @@ class Chat extends Model {
             $this->user->FillObject($row);
         }
         $this->datetime = $row['ChatDateTime'];
+        $this->textdate = dateToText($this->datetime);
     }
 
     public static function getChat() {
         $db = DatabasePDO::start();
-        $result = $db->prepare("SELECT c.*, u.UserID, u.UserName FROM chatbox c, users u WHERE u.UserID = c.UserID GROUP BY c.ChatID ORDER BY ChatDateTime DESC LIMIT 20");
+        $result = $db->prepare("SELECT c.*, u.* FROM chatbox c, users u WHERE u.UserID = c.UserID GROUP BY c.ChatID ORDER BY ChatDateTime DESC LIMIT 20");
         $result->execute();
         $chats = array();
         while($row = $result->fetch()) {
@@ -28,7 +29,7 @@ class Chat extends Model {
 
     public static function getFromDate($datetime) {
         $db = DatabasePDO::start();
-        $result = $db->prepare("SELECT c.*, u.UserID, u.UserName FROM chatbox c, users u WHERE c.ChatDateTime >= :datetime AND u.UserID = c.UserID GROUP BY c.ChatID ORDER BY ChatDateTime DESC");
+        $result = $db->prepare("SELECT c.*, u.* FROM chatbox c, users u WHERE c.ChatDateTime >= :datetime AND u.UserID = c.UserID GROUP BY c.ChatID ORDER BY ChatDateTime DESC");
         $result->bindParam(":datetime", $datetime);
         $result->execute();
         $chats = array();
@@ -63,14 +64,15 @@ function dateToText($datetime) {
     $interval = date_create('now')->diff( $datetime );
     $suffix = ( $interval->invert ? ' ago' : '' );
     $last = false;
-    if ( $v = $interval->y >= 1 ) { echo pluralize( $interval->y, 'year' ); $last = true; }
-    if ( $v = $interval->m >= 1 ) { if($last) { echo ", "; } echo pluralize( $interval->m, 'month' ); $last = true; }
-    if ( $v = $interval->d >= 1 ) { if($last) { echo ", "; } echo pluralize( $interval->d, 'day' ); $last = true; }
+    $text = "";
+    if ( $v = $interval->y >= 1 ) { $text = pluralize( $interval->y, 'year' ); $last = true; }
+    if ( $v = $interval->m >= 1 ) { if($last) { $text = ", "; } $text = pluralize( $interval->m, 'month' ); $last = true; }
+    if ( $v = $interval->d >= 1 ) { if($last) { $text = ", "; } $text = pluralize( $interval->d, 'day' ); $last = true; }
     if($interval->d<=0 && $interval->m==0 && $interval->y==0) {
         if ( $v = $interval->h >= 1 ) return pluralize( $interval->h, 'hour' ) . $suffix;
         if ( $v = $interval->i >= 1 ) return pluralize( $interval->i, 'minute' ) . $suffix;
         return pluralize( $interval->s, 'second' ) . $suffix;
     } else {
-        echo $suffix;
+        return $text . $suffix;
     }
 }

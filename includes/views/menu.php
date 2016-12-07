@@ -1,7 +1,11 @@
 <?php if($data->user) {?>
 <nav class="navbar navbar-default navbar-static-top">
     <a class="navbar-brand" href="start"><img src="images/logo-32.png" title="<?=__UNIT_NAME?>" /></a>
-    <p class="navbar-text text-right" style="float: none;">Hi <strong><?=$data->user->name?></strong> <a href="logout" class="btn btn-danger">Logout</a></p>
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+    </ul>
+    <p class="navbar-text text-right" style="float: none;">Hi <strong><?=$data->user->name?></strong> <a href="logout" class="btn btn-danger btn-xs">Logout</a></p>
 </nav>
 <?php } else { ?>
 <nav class="navbar navbar-default navbar-static-top">

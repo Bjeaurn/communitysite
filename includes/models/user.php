@@ -1,7 +1,12 @@
 <?php
 class User extends Model {
 
-    public $id, $name;
+    public $id, $name, $level;
+
+    public function FillObject($row) {
+      parent::FillObject($row);
+      $this->level = $row['UserLevel'];
+    }
 
     public static function getUser() {
         $user = new User;
