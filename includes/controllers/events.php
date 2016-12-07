@@ -63,7 +63,7 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
     if($data->user) {
       $eventID = $routing[1];
       $event = Event::FindById($eventID);
-      $status = Security::sanitizeText($_POST['status']);
+      $status = $_POST['status'];
 
       $attendance = new Attendance;
       $attendance->userID = $data->user->id;

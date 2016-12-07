@@ -58,6 +58,7 @@ class Attendance extends Model {
   }
 
   public function update() {
+    // TODO - ON DUPLICATE KEY part doesn't work.
     $db = DatabasePDO::start();
     $result = $db->prepare("INSERT IGNORE INTO event_attendance (UserID, EventID, AttendanceStatus, AttendanceDateTime) VALUES (:userID, :eventID, :status, NOW())
     ON DUPLICATE KEY UPDATE AttendanceStatus = :status AND AttendanceDateTime = NOW()");
