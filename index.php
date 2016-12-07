@@ -8,6 +8,8 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="stylesheet/master.css" />
+    <script src="libs/datepicker/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="libs/datepicker/bootstrap-datepicker3.min.css" />
 
     <!-- 1. Load libraries -->
     <!-- IE required polyfill -->
@@ -20,6 +22,7 @@
     <script src="node_modules/@angular/compiler/bundles/compiler.umd.js"></script>
     <script src="node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"></script>
     <script src="node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"></script>
+
     <!-- 2. Load our 'modules' -->
     <script src='app/app.component.js'></script>
     <script src='app/app.module.js'></script>
