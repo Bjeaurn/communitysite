@@ -10,7 +10,7 @@ class Event extends Model {
 
   public static function FindFuture() {
     $db = DatabasePDO::start();
-    $result = $db->prepare("SELECT * FROM events WHERE EventEndDateTime >= NOW() ORDER BY EventStartDateTime");
+    $result = $db->prepare("SELECT * FROM events WHERE EventEndDateTime >= NOW() ORDER BY EventStartDateTime DESC");
     $result->execute();
     $events = array();
     if($result->rowCount() > 0) {
@@ -25,7 +25,7 @@ class Event extends Model {
 
   public static function FindAll() {
     $db = DatabasePDO::start();
-    $result = $db->prepare("SELECT * FROM events ORDER BY EventStartDateTime");
+    $result = $db->prepare("SELECT * FROM events ORDER BY EventStartDateTime DESC");
     $result->execute();
     $events = array();
     if($result->rowCount() > 0) {
@@ -51,6 +51,22 @@ class Event extends Model {
       return $event;
     }
     return false;
+  }
+
+  public function create($userID) {
+    if($this->name && $this->category && $this->startDateTime && $this->endDateTime) {
+      $db = DatabasePDO::start();
+      $result = $db->prepare("INSERT INTO events (EventName, EventCategory, EventAuthorID, EventStartDateTime, EventEndDateTime, EventDescription) VALUES (:name, :category, :userID, :start, :end, :description)");
+      $result->bindParam(":name", $this->name);
+      $result->bindParam(":category", $this->category);
+      $result->bindParam(":userID", $userID);
+      $result->bindParam(":start", $this->startDateTime);
+      $result->bindParam(":end", $this->endDateTime);
+      $result->bindParam(":description", $this->description);
+      $result->execute();
+      $this->id = $db->lastInsertId();
+      return $this;
+    }
   }
 
 }

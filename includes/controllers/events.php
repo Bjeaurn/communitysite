@@ -6,7 +6,8 @@ if(User::isLoggedIn() && !$data->user) {
 $router = Router::start();
 $routing = $router->getRouting();
 if($_SERVER['REQUEST_METHOD']=="GET") {
-  if(is_int($routing[1])) {
+
+  if($routing[1] && $routing[1]!=="new") {
     // Show event
     $eventID = $routing[1];
 
@@ -37,7 +38,26 @@ if($_SERVER['REQUEST_METHOD']=="GET") {
 }
 
 if($_SERVER['REQUEST_METHOD']=="POST") {
-  print_r($_POST);
+  if($data->user && $data->user->level > 0) {
+    $event = new Event;
+    $event->name = Security::sanitizeText($_POST['name']);
+    $event->category = Security::sanitizeText($_POST['category']);
+    $event->description = Security::sanitizeText($_POST['description']);
+
+    $start = new DateTime($_POST['startDate']);
+    if($start) {
+      $event->startDateTime = $start->format('Y-m-d H:i');
+    }
+    $end = new DateTime($_POST['endDate']);
+    if($end) {
+      $event->endDateTime = $end->format('Y-m-d H:i');
+    }
+
+    $event->create($data->user->id);
+    Router::Redirect('events/'.$event->id);
+  } else {
+    Router::Redirect('events');
+  }
 }
 
 $page->setData($data);
