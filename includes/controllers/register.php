@@ -2,7 +2,6 @@
 
 if($_SERVER['REQUEST_METHOD']=="POST") {
     $data->error = array();
-
     if($_POST['resultCheck'] !== sha1($_POST['control'])) {
         array_push($data->error, "Human verification failed.");
     }
@@ -37,13 +36,10 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
     }
 }
 
-$operators = array('+', '-');
 
 $data->human1 = rand(1, 5);
 $data->human2 = rand(1, 4);
-$data->operator = $operators[array_rand($operators)];
-
-$data->result = sha1($data->human1+$data->operator+$data->human2);
+$data->result = sha1($data->human1+$data->human2);
 
 $page->setView('register');
 $page->setName('register');

@@ -36,9 +36,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="check" class="col-sm-2 control-label"><?=$data->human1?> <?=$data->operator?> <?=$data->human2?></label>
+        <label for="check" class="col-sm-2 control-label"><?=$data->human1?> + <?=$data->human2?></label>
         <div class="col-sm-8">
-            <input type="number" class="form-control" id="control" name="control" placeholder="Solve me: <?=$data->human1?> <?=$data->operator?> <?=$data->human2?>" />
+            <input type="number" class="form-control" id="control" name="control" placeholder="Solve me: <?=$data->human1?> + <?=$data->human2?>" />
             <input type="hidden" value="<?=$data->result?>" name="resultCheck" />
         </div>
       </div>
